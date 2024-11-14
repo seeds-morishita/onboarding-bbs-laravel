@@ -1,41 +1,3 @@
-<?php
-// セッション開始
-session_start();
-
-// 送られてきた値をセッションに保存
-$id = $_POST['id'];
-$_SESSION['id'] = $id;
-
-// 値のバリデーションを行う
-if(empty($id)){
-    redirect('http://127.0.0.1:8000/index');
-}
-
-// データベースへの接続設定
-$dsn = 'mysql:host=127.0.0.1;dbname=laravel;charset=utf8';
-$username = 'user';
-$password = 'password';
-
-// PDOインスタンスの作成
-$pdo = new PDO($dsn, $username, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// SQL文の準備
-$stmt = $pdo->prepare('SELECT * FROM `articles` WHERE id = ?');
-$stmt->execute([$id]);
-
-$article = $stmt-> fetch(PDO::FETCH_ASSOC);
-
-// 編集する投稿データの取得
-$name = $article['name'];
-$content = $article['content'];
-
-// トークン発行(時刻)
-$token = strval(time());
-$_SESSION['token'] = $token;
-
-?>
-
 <!--   HTML   -->
 <!doctype html>
 <html lang="ja">
@@ -61,18 +23,18 @@ $_SESSION['token'] = $token;
         <h1>投稿編集</h1>
     </header>
     <main>
-        <form action="{{ route('edit.complete')}}" method="post">
+        <form action="{{ route('boards.edit_complete',$article)}}" method="post">
             @csrf
-            <input type="hidden" name="token" value="<?= $token ?>">
+            <input type="hidden" name="token" value="{{ session('token') }}">
             <table>
                 <tbody>
                 <tr>
                     <th><label for="name">名前</label></th>
-                    <td><input type="taxt" name="name" id="name" value="<?= $name ?>" required></td>
+                    <td><input type="text" name="name" id="name" value="<?= $article['name'] ?>" required></td>
                 </tr>    
                 <tr>
                     <th><label for="content">投稿内容</label></th>
-                    <td><textarea name="content" id="content" rows="4" required><?= $content ?></textarea></td>
+                    <td><textarea name="content" id="content" rows="4" required><?= $article['content'] ?></textarea></td>
                 </tr>
                 </tbody>
             </table>

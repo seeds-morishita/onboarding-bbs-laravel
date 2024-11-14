@@ -1,14 +1,17 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\ArticleController;
 
-Route::controller(BoardController::class)->group(function () {
-    Route::get('index', 'index')->name('index');
-    Route::post('post_confirm', 'postConfirm')->name('post.confirm');
-    Route::post('post_complete', 'postComplete')->name('post.complete');
-    Route::post('edit/{id}', 'edit')->name('edit');
-    Route::post('edit_complete', 'editComplete')->name('edit.complete');
-    Route::post('delete_confirm', 'deleteConfirm')->name('delete.confirm');
-    Route::post('delete_complete', 'deleteComplete')->name('delete.complete');
-});
+Route::get('boards/{article}/edit', [ArticleController::class, 'edit'])->name('boards.edit');
+Route::post('/boards/{article}/edit_complete', [ArticleController::class, 'editComplete'])->name('boards.edit_complete');
+
+Route::post('/boards/post_confirm', [ArticleController::class, 'postConfirm'])->name('boards.post_confirm');
+Route::post('/boards/post_complete', [ArticleController::class, 'postComplete'])->name('boards.post_complete');
+
+Route::get('boards/{article}/delete_confirm', [ArticleController::class, 'deleteConfirm'])->name('boards.delete_confirm');
+Route::post('/boards/{article}/delete_complete', [ArticleController::class, 'deleteComplete'])->name('boards.delete_complete');
+
+Route::get('index', [BoardController::class, 'index'])->name('index');
+
 

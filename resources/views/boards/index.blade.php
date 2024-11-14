@@ -1,31 +1,3 @@
-<?php
-// セッション開始
-session_start();
-
-// データベースへの接続設定
-$dsn = 'mysql:host=127.0.0.1;dbname=laravel;charset=utf8';
-$username = 'user';
-$password = 'password';
-
-// PDOインスタンスの作成
-$pdo = new PDO($dsn, $username, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// SQL文の準備
-$stmt = $pdo->prepare('SELECT * FROM `articles`');
-$stmt->execute();
-$articles = $stmt->fetchall(PDO::FETCH_ASSOC);
-
-/* ------------------------------------------------------
- * ダミーデータ
- * ------------------------------------------------------ */
-/*$articles = [
-    ['id' => 1, 'name' => 'Dummy', 'content' => 'Dummy' , 'created_at' => '2020-12-09 00:00:00', 'updated_at' => '2020-12-09 00:00:00']
-];
-*/
-
-?>
-<!-- HTML -->
 <!doctype html>
 <html lang="ja">
 
@@ -60,23 +32,22 @@ $articles = $stmt->fetchall(PDO::FETCH_ASSOC);
                     </div>
                     <div><?= htmlspecialchars($article['content'])?></div>
                     <div style="display: inline-flex;">
-                        <form action="{{ route('edit', $article['id']) }}" method="post">
+                        <form action="{{ route('boards.edit', $article) }}" method="get">
                         @csrf
-                            <input type="hidden" name="id" value="<?= $article['id']?>">
                             <button type="submit">編集</button>
                         </form>
                         &nbsp;
-                        <form action="{{ route('delete.confirm')}}" method="post">
+                        <form action="{{ route('boards.delete_confirm', $article)}}" method="get">
                         @csrf
-                            <input type="hidden" name="id" value="<?= $article['id']?> ">
                             <button type="submit">削除</button>
                         </form>
+                        &nbsp;
                     </div>
                 </li>
             <?php } ?>
         </ul>
         <div>
-            <form action="{{ route('post.confirm') }}" method="post">
+            <form action="{{ route('boards.post_confirm') }}" method="post">
             @csrf
                 <table>
                     <thead>
