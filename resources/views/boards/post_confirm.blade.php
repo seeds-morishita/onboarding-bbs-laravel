@@ -15,8 +15,8 @@
         <div>下記の内容で投稿しますがよろしいですか</div>
         <table>
             <tbody>
-                <tr><th>名前</th><td><?= $_POST['name'] ?></td></tr>
-                <tr><th>投稿内容</th><td><?= $_POST['content'] ?></td></tr>
+                <tr><th>名前</th><td><?= htmlspecialchars($_POST['name']) ?></td></tr>
+                <tr><th>投稿内容</th><td><?= htmlspecialchars($_POST['content']) ?></td></tr>
             </tbody>
         </table>
         <form action="{{ route('boards.post_complete', $article)}}" method="post">

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\EditRequest;
+use App\Http\Requests\DeleteRequest;
 
 
 class ArticleController extends Controller
 {
     /** 編集機能 */
-    public function edit(Request $request, Article $article)
+    public function edit(Article $article)
     {
         // セッションにIDを保存
         Session::put('id', $article->id);
@@ -22,15 +24,8 @@ class ArticleController extends Controller
         return view('boards.edit', compact('article'));
     }
 
-    public function editComplete(Request $request , Article $article)
-    {
-        // CSRFトークンの検証
-        $request->validate([
-            'token' => 'required|in:' . session('token'),
-            'name' => 'required|string',
-            'content' => 'required|string',
-        ]);
-    
+    public function editComplete(EditRequest $request , Article $article)
+    {    
         // 送信されたデータを更新
         $article->name = $request->input('name');
         $article->content = $request->input('content');
@@ -47,7 +42,7 @@ class ArticleController extends Controller
 
 
     /** 新規投稿機能 */
-    public function postConfirm(Request $request, Article $article)
+    public function postConfirm(Article $article)
     {
         Session::put('id', $article->id);
 
@@ -57,15 +52,8 @@ class ArticleController extends Controller
         return view('boards.post_confirm', compact('article'));
     }
 
-    public function postComplete(Request $request, Article $article)
+    public function postComplete(PostRequest $request, Article $article)
     {
-        // CSRFトークンの検証
-        $request->validate([
-            'token' => 'required|in:' . session('token'),
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-        ]);
-
         $article->name = $request->input('name');
         $article->content = $request->input('content');
         
@@ -81,7 +69,7 @@ class ArticleController extends Controller
     
 
     /** 削除機能 */
-    public function deleteConfirm(Request $request, Article $article)
+    public function deleteConfirm(Article $article)
     {
         Session::put('id', $article->id);
 
@@ -91,15 +79,8 @@ class ArticleController extends Controller
         return view('boards.delete_confirm', compact('article'));
     }
 
-    public function deleteComplete(Request $request, Article $article)
+    public function deleteComplete(DeleteRequest $request, Article $article)
     {
-        // CSRFトークンの検証
-        $request->validate([
-            'token' => 'required|in:' . session('token'),
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-        ]);
-
         $article -> delete();
 
         Session::forget('id');
