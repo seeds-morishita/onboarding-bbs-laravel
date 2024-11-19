@@ -11,7 +11,7 @@
             <h1>編集成功</h1>
         </header>
         <main>
-            <a href="http://127.0.0.1:8000/index">戻る</a>
+            <a href="{{ route('index') }}">戻る</a>
         </main>
     </body>
 </html>
