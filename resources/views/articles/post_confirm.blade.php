@@ -19,7 +19,7 @@
                 <tr><th>投稿内容</th><td><?= htmlspecialchars($_POST['content']) ?></td></tr>
             </tbody>
         </table>
-        <form action="{{ route('boards.post_complete', $article)}}" method="post">
+        <form action="{{ route('articles.post_complete', $article)}}" method="post">
             @csrf
             <input type="hidden" name="token" value="{{ session('token') }}">
             <input type="hidden" name="name" value="<?= $_POST['name'] ?>">

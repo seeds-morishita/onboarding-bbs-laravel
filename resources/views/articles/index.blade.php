@@ -32,12 +32,12 @@
                     </div>
                     <div><?= htmlspecialchars($article['content'])?></div>
                     <div style="display: inline-flex;">
-                        <form action="{{ route('boards.edit', $article) }}" method="get">
+                        <form action="{{ route('articles.edit', $article) }}" method="get">
                         @csrf
                             <button type="submit">編集</button>
                         </form>
                         &nbsp;
-                        <form action="{{ route('boards.delete_confirm', $article)}}" method="get">
+                        <form action="{{ route('articles.delete_confirm', $article)}}" method="get">
                         @csrf
                             <button type="submit">削除</button>
                         </form>
@@ -47,7 +47,7 @@
             <?php } ?>
         </ul>
         <div>
-            <form action="{{ route('boards.post_confirm') }}" method="post">
+            <form action="{{ route('articles.post_confirm') }}" method="post">
             @csrf
                 <table>
                     <thead>

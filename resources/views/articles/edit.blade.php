@@ -23,7 +23,7 @@
         <h1>投稿編集</h1>
     </header>
     <main>
-        <form action="{{ route('boards.edit_complete',$article)}}" method="post">
+        <form action="{{ route('articles.edit_complete',$article)}}" method="post">
             @csrf
             <input type="hidden" name="token" value="{{ session('token') }}">
             <table>

@@ -11,6 +11,13 @@ use App\Http\Requests\DeleteRequest;
 
 class ArticleController extends Controller
 {
+    public function index()
+    {
+        $articles = Article::all(); // 記事を取得
+
+        // ビューに$articlesを渡す
+        return view('articles.index', compact('articles'));
+    }
     /** 編集機能 */
     public function edit(Article $article)
     {
@@ -21,7 +28,7 @@ class ArticleController extends Controller
         $token = strval(time());
         Session::put('token', $token);
 
-        return view('boards.edit', compact('article'));
+        return view('articles.edit', compact('article'));
     }
 
     public function editComplete(EditRequest $request , Article $article)
@@ -37,7 +44,7 @@ class ArticleController extends Controller
         Session::forget('id');
         Session::forget('token');
     
-        return view('boards.edit_complete');
+        return view('articles.edit_complete');
     }
 
 
@@ -49,7 +56,7 @@ class ArticleController extends Controller
         $token = strval(time());
         Session::put('token', $token);
 
-        return view('boards.post_confirm', compact('article'));
+        return view('articles.post_confirm', compact('article'));
     }
 
     public function postComplete(PostRequest $request, Article $article)
@@ -64,7 +71,7 @@ class ArticleController extends Controller
         Session::forget('id');
         Session::forget('token');
         
-        return view('boards.post_complete');
+        return view('articles.post_complete');
     }
     
 
@@ -76,7 +83,7 @@ class ArticleController extends Controller
         $token = strval(time());
         Session::put('token', $token);
 
-        return view('boards.delete_confirm', compact('article'));
+        return view('articles.delete_confirm', compact('article'));
     }
 
     public function deleteComplete(DeleteRequest $request, Article $article)
@@ -86,6 +93,6 @@ class ArticleController extends Controller
         Session::forget('id');
         Session::forget('token');
 
-        return view('boards.delete_complete');
+        return view('articles.delete_complete');
     }
 }

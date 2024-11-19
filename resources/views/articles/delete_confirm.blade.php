@@ -18,7 +18,7 @@
                 <tr><th>投稿内容</th><td><?= htmlspecialchars($article['content']) ?></td></tr>
                 </tbody>
         </table>
-        <form action="{{ route('boards.delete_complete', $article)}}"  method="post">
+        <form action="{{ route('articles.delete_complete', $article)}}"  method="post">
         @csrf
             <input type="hidden" name="token" value="{{ session('token') }}">
             <input type="hidden" name="name" value="<?= $article['name'] ?>">
