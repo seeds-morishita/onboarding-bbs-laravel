@@ -22,7 +22,6 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token' => 'required|in:' . session('token'),
             'name' => 'required|string|max:255',
             'content' => 'required|string',
         ];
