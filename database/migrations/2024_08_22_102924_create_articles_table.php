@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('content');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrentOnUpdate();
-
         });
     }
 

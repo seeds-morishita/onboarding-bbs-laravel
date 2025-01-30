@@ -10,4 +10,4 @@ Route::post('/articles/post_complete', [ArticleController::class, 'postComplete'
 Route::get('articles/{article}/delete_confirm', [ArticleController::class, 'deleteConfirm'])->name('articles.delete_confirm');
 Route::post('/articles/{article}/delete_complete', [ArticleController::class, 'deleteComplete'])->name('articles.delete_complete');
 
-Route::get('index', [ArticleController::class, 'index'])->name('index');
+Route::get('/', [ArticleController::class, 'index'])->name('index');
