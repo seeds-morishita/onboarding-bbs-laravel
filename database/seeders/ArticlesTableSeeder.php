@@ -14,13 +14,11 @@ class ArticlesTableSeeder extends Seeder
     public function run(): void
     {
         Article::create([
-            'id' => 1,
             'name' => 'examle1',
             'content' => 'aaa',
         ]);
 
         Article::create([
-            'id' => 2,
             'name' => 'examle2',
             'content' => 'bbb',
         ]);
