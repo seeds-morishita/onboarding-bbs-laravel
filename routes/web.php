@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ArticleController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
 Route::post('/articles/{article}/edit_complete', [ArticleController::class, 'editComplete'])->name('articles.edit_complete');
