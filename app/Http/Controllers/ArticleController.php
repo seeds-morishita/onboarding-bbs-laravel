@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request; 
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\EditRequest;
-use App\Http\Requests\DeleteRequest;
 
 
 class ArticleController extends Controller
@@ -19,26 +19,27 @@ class ArticleController extends Controller
         return view('articles.index', compact('articles'));
     }
 
-    /** 新規投稿機能 */
-    public function postConfirm(Article $article)
+    public function postConfirm(Request $request)
     {
-        Session::put('id', $article->id);
-    
+        Session::put($request->input('name'));
+        Session::put($request->input('content'));
+        
         $token = strval(time());
         Session::put('token', $token);
-    
-        return view('articles.post_confirm', compact('article'));
+
+        return view('articles.post_confirm', ['request' => $request]);
     }
-    
-    public function postComplete(PostRequest $request, Article $article)
+
+    public function postComplete(PostRequest $request)
     {
+        $article = new Article();
         $article->name = $request->input('name');
         $article->content = $request->input('content');
         
         // データベースに保存
         $article->save();
         
-        // セッション内のデータ削除
+        // セッションのデータ削除
         Session::forget('id');
         Session::forget('token');
         
@@ -85,7 +86,7 @@ class ArticleController extends Controller
         return view('articles.delete_confirm', compact('article'));
     }
 
-    public function deleteComplete(DeleteRequest $request, Article $article)
+    public function deleteComplete(Article $article)
     {
         $article -> delete();
 
