@@ -24,7 +24,6 @@ services:
       - ./:/app
     ports:
       - "80:80"
-    # command: /bin/bash -c "/app/docker/web/entrypoint.sh"
     working_dir: /app
     depends_on:
       db:
