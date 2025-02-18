@@ -14,8 +14,8 @@
         <div>下記の内容を削除しますがよろしいですか？</div>
         <table>
             <tbody>
-                <tr><th>名前</th><td><?= htmlspecialchars($article['name']) ?></td></tr>
-                <tr><th>投稿内容</th><td><?= htmlspecialchars($article['content']) ?></td></tr>
+                <tr><th>名前</th><td>{{ $article['name'] }}</td></tr>
+                <tr><th>投稿内容</th><td>{{ $article['content'] }}</td></tr>
                 </tbody>
         </table>
         <form action="{{ route('articles.delete_complete', $article)}}"  method="post">
