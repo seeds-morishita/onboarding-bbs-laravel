@@ -25,26 +25,24 @@
     </header>
     <main>
         <ul>
-            <?php foreach ($articles as $article) { ?>
+            @foreach ($articles as $article)
                 <li>
                     <div>
-                        <?= htmlspecialchars($article['id']) ?>:&nbsp;<?= htmlspecialchars($article['name']) ?>&nbsp;<?= htmlspecialchars($article['updated_at']) ?>
+                        {{ $article->id }}:&nbsp;{{ $article->name }}&nbsp;{{ $article->updated_at }}
                     </div>
-                    <div><?= htmlspecialchars($article['content'])?></div>
+                    <div>{{ $article->content }}</div>
                     <div style="display: inline-flex;">
                         <form action="{{ route('articles.edit', $article) }}" method="get">
-                        @csrf
                             <button type="submit">編集</button>
                         </form>
                         &nbsp;
-                        <form action="{{ route('articles.delete_confirm', $article)}}" method="get">
-                        @csrf
+                        <form action="{{ route('articles.delete_confirm', $article) }}" method="get">
                             <button type="submit">削除</button>
                         </form>
                         &nbsp;
                     </div>
                 </li>
-            <?php } ?>
+            @endforeach
         </ul>
         <div>
             <form action="{{ route('articles.post_confirm') }}" method="post">
