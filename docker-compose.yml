@@ -1,4 +1,4 @@
-version: ‘3.9’
+version: '3.9'
 services:
   db:
     image: mysql:8.0.31
@@ -16,6 +16,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: 1
+
   web:
     build:
       context: docker/web
@@ -25,6 +26,7 @@ services:
     ports:
       - "80:80"
     working_dir: /app
+    entrypoint: ["docker/web/entrypoint.sh"]
     depends_on:
       db:
         condition: service_healthy
