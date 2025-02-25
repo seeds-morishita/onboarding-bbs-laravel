@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# composer install を実行
+if [ -f composer.json ]; then
+    composer install
+fi

@@ -21,8 +21,8 @@
         <form action="{{ route('articles.delete_complete', $article)}}"  method="post">
         @csrf
             <input type="hidden" name="token" value="{{ session('token') }}">
-            <input type="hidden" name="name" value="<?= $article['name'] ?>">
-            <input type="hidden" name="content" value="<?= $article['content'] ?>">
+            <input type="hidden" name="name" value="{{ $article['name'] }}">
+            <input type="hidden" name="content" value="{{ $article['content'] }}">
             <button type="submit">削除</button>
         </form>
     </main>
