@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0.31
+    volumes:
+      - ./docker/db/conf.d:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: "mysqladmin ping"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: 1
+
+  web:
+    build:
+      context: docker/web
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - "80:80"
+    working_dir: /app
+    entrypoint: ["docker/web/entrypoint.sh"]
+    depends_on:
+      db:
+        condition: service_healthy
