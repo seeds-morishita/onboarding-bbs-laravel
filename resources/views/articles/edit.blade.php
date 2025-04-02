@@ -34,7 +34,7 @@
                 </tr>    
                 <tr>
                     <th><label for="content">投稿内容</label></th>
-                    <td><textarea name="content" id="content" rows="4" required>{{ $article['content'] }} </textarea></td>
+                    <td><textarea name="content" id="content" rows="4" required>{{ $article['content'] }}</textarea></td>
                 </tr>
                 </tbody>
             </table>
